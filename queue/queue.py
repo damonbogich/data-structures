@@ -52,7 +52,6 @@ class Node:
     def set_next(self, new_next):
         self.next_node = new_next
 
-
 class LinkedList:
     def __init__(self):
         self.head = None
@@ -152,13 +151,23 @@ class LinkedList:
 class Queue:
     def __init__(self):
         self.size = 0
-        # self.storage = ?
+        self.storage = LinkedList()
     
     def __len__(self):
-        pass
+        if self.storage.head is None:
+            return 0
+        elif self.storage.head.next_node is None:
+            return 1
+        else:
+            length = 1
+            current_node = self.storage.head
+            while current_node.next_node is not None:
+                length += 1
+                current_node = current_node.next_node
+            return length
 
     def enqueue(self, value):
-        pass
+        return self.storage.add_to_tail(value)
 
     def dequeue(self):
-        pass
+        return self.storage.remove_head()
