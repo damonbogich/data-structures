@@ -107,7 +107,48 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        pass
+        input_node = node
+        current_head = self.head
+        current_tail = self.tail
+        #empty DLL:
+        if self.head is None:
+            return None
+        #input node value = head value
+        elif self.head.value == input_node.value:
+            self.head = self.head
+        #input node value = tail value
+
+        
+        elif self.tail.value == input_node.value:
+            #set tail to tail.prev
+            self.tail = current_tail.prev
+            #set new tail.next to None
+            self.tail.next = None
+            #set old head.prev to new head
+            current_head.prev = current_tail
+            #sets head to old tail
+            self.head = current_tail
+            #sets new head's prev to None
+            self.head.prev = None
+            self.head.next = current_head
+
+
+        else:
+            search = self.head
+            while search.value != input_node.value:
+                search = search.next
+            #now I'm assuming search.val = input.val
+            
+            #remove search from current spot:
+            search.prev.next = search.next
+            search.next.prev = search.prev
+
+            #move search to head:
+            current_head.prev = search
+            self.head = search
+            self.head.prev = None
+            self.head.next = current_head
+
         
     """
     Removes the input node from its current spot in the 
